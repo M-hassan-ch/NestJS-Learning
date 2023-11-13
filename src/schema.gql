@@ -2,76 +2,40 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: String!
-  name: String
-  email: String!
-  otp: String
-  otpExpiry: DateTime
-  password: String
-  invite: String
-  status: String!
-  role: String!
-  walletAddress: String
+type Employee {
+  id: Float!
+  name: String!
+  city: String!
+  project: Project
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type TokenType {
-  id: String
-  jwt: String
-}
-
-type ResponsePayload {
-  status: Float
-  message: String
-  data: User
-}
-
-type ResponsePayloadBool {
-  status: Float
-  message: String
-  data: Boolean
+type Project {
+  id: Float!
+  name: String!
+  code: Int!
+  employees: [Employee!]
 }
 
 type Query {
-  userData: String!
+  getAllEmployees: [Employee!]!
+  getAllProjects: [Project!]!
+  project(id: Int!): Project!
 }
 
 type Mutation {
-  userCreation(createUserInputDTO: CreateUserInputDTO!): ResponsePayload!
-  userVerification(OtpVerificationDTO: OtpVerificationDTO!): ResponsePayloadBool!
-  partnerSignup(PartnerSignUpDTO: PartnerSignUpDTO!): ResponsePayload!
-  appUserSignUp(SignupAppUserDTO: SignupAppUserDTO!): ResponsePayload!
-  login(loginPayloadDTO: LoginPayloadDTO!): TokenType!
+  createEmployee(employee: CreateEmployeeDTO!): Employee!
+  updateEmployee(empId: Float!, employee: CreateEmployeeDTO!): Employee!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  removeProject(id: Int!): Project!
 }
 
-input CreateUserInputDTO {
-  email: String!
-  role: String!
-}
-
-input OtpVerificationDTO {
-  email: String!
-  otp: String!
-}
-
-input PartnerSignUpDTO {
-  email: String!
+input CreateEmployeeDTO {
   name: String!
-  newPassword: String!
+  city: String!
+  projectId: Int!
 }
 
-input SignupAppUserDTO {
-  email: String!
-  role: String!
-  password: String!
-}
-
-input LoginPayloadDTO {
-  email: String!
-  password: String!
+input CreateProjectInput {
+  name: String!
+  code: Int!
 }

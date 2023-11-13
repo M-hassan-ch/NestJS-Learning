@@ -1,11 +1,11 @@
-
-import { ConfigService, ConfigModule } from '@nestjs/config';
-import { DataSourceOptions } from 'typeorm';
-ConfigModule.forRoot({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const config_1 = require("@nestjs/config");
+config_1.ConfigModule.forRoot({
     isGlobal: true,
     envFilePath: '.env',
-})
-const databaseConfig: DataSourceOptions = {
+});
+const databaseConfig = {
     type: 'postgres',
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT) || 5432,
@@ -13,12 +13,11 @@ const databaseConfig: DataSourceOptions = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [__dirname + '../../**/**/*entity{.ts,.js}'],
-    // We are using migrations, synchronize should be set to false.
     synchronize: false,
     migrationsRun: true,
     logging: true,
     logger: 'file',
     migrations: [__dirname + '/../migrations/*{.ts,.js}']
 };
-
-export default databaseConfig;
+exports.default = databaseConfig;
+//# sourceMappingURL=database.config.js.map
