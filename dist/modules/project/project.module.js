@@ -12,13 +12,15 @@ const project_service_1 = require("./project.service");
 const project_resolver_1 = require("./project.resolver");
 const project_entity_1 = require("./entities/project.entity");
 const typeorm_1 = require("@nestjs/typeorm");
+const project_controller_1 = require("./project.controller");
 let ProjectModule = class ProjectModule {
 };
 ProjectModule = __decorate([
     (0, common_1.Module)({
         providers: [project_resolver_1.ProjectResolver, project_service_1.ProjectService],
         imports: [typeorm_1.TypeOrmModule.forFeature([project_entity_1.Project])],
-        exports: [project_service_1.ProjectService]
+        exports: [project_service_1.ProjectService],
+        controllers: [project_controller_1.ProjectController]
     })
 ], ProjectModule);
 exports.ProjectModule = ProjectModule;
